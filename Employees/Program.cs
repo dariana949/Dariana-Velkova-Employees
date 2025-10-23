@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ICollectionFactory, CollectionFactory>();
 builder.Services.AddTransient<IFileReader, FileReader>();
 builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddTransient<IModelFactory, ModelFactory>();
 
 //var orig = builder.Configuration.GetSection("AllowSpecificOrigin").Get<List<string>>();
 builder.Services.AddCors(options =>

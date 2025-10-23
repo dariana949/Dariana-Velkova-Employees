@@ -9,15 +9,18 @@ namespace Employees.Services
 {
 	public class FileService : IFileService
 	{
+		private readonly IModelFactory modelFactory;
 		private readonly ICollectionFactory collectionFactory;
 		private readonly IFileReader fileReader;
 		private readonly string AllowedExtentions = ".csv";
 
 		public FileService(ICollectionFactory collectionFactory,
-		                   IFileReader fileReader)
+		                   IFileReader fileReader,
+						   IModelFactory modelFactory)
 		{
 			this.collectionFactory = collectionFactory;
 			this.fileReader = fileReader;		
+			this.modelFactory = modelFactory;
 		}
 		
 		public void Validate(IFormFile formFile)
@@ -123,7 +126,7 @@ namespace Employees.Services
 		{
 			var dataToPrint = FilterFileData(teamWorkDictionary);
 			int countEmployees = 1;
-			EmployeeInfoOut employeeInfo = new EmployeeInfoOut();
+			EmployeeInfoOut employeeInfo = this.modelFactory.CreateEmployeeModel();
 
 			foreach (var keyValuePair in dataToPrint.Where(p => p.Value.Count > 1))
 			{	
